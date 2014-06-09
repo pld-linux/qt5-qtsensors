@@ -1,5 +1,6 @@
-# TODO:
-# - cleanup
+# maybe TODO: 
+# plugins/simulator (BR: Qt5Simulator)
+# plugins/sensorfw for MeeGo (sensorfw / sensord-qt)
 #
 # Conditional build:
 %bcond_without	qch	# documentation in QCH format
@@ -11,16 +12,16 @@
 Summary:	The Qt5 Sensors library
 Summary(pl.UTF-8):	Biblioteka Qt5 Sensors
 Name:		qt5-%{orgname}
-Version:	5.2.0
-Release:	0.1
-License:	LGPL v2.1 or GPL v3.0
+Version:	5.3.0
+Release:	1
+License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
-Source0:	http://download.qt-project.org/official_releases/qt/5.2/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
-# Source0-md5:	718606a6f76afa20c6cd2e0433356ac2
+Source0:	http://download.qt-project.org/official_releases/qt/5.3/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
+# Source0-md5:	3f8c7e7ed87785d8c1fbab4fec6f458d
 URL:		http://qt-project.org/
-BuildRequires:	qt5-qtbase-devel = %{version}
-BuildRequires:	qt5-qtdeclarative-devel = %{version}
-BuildRequires:	qt5-qttools-devel = %{version}
+BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
+BuildRequires:	Qt5Qml-devel >= %{qtdeclarative_ver}
+BuildRequires:	Qt5Quick-devel >= %{qtdeclarative_ver}
 %if %{with qch}
 BuildRequires:	qt5-assistant >= %{qttools_ver}
 %endif
@@ -54,13 +55,14 @@ Summary:	The Qt5 Sensors library
 Summary(pl.UTF-8):	Biblioteka Qt5 Sensors
 Group:		Libraries
 Requires:	Qt5Core >= %{qtbase_ver}
+Requires:	Qt5Qml >= %{qtdeclarative_ver}
 Obsoletes:	qt5-qtsensors
 
 %description -n Qt5Sensors
-Qt5 Sensors library (TODO: description).
+Qt5 Sensors library provides classes for reading sensor data.
 
 %description -n Qt5Sensors -l pl.UTF_8
-Biblioteka Qt5 Sensors (TODO: ...).
+Biblioteka Qt5 Sensors dostarcza klasy do odczytu danych z czujników.
 
 %package -n Qt5Sensors-devel
 Summary:	Qt5 Sensors library - development files
@@ -143,10 +145,7 @@ rm -rf $RPM_BUILD_ROOT
 
 # Prepare some files list
 ifecho() {
-	RESULT=`echo $RPM_BUILD_ROOT$2 2>/dev/null`
-	[ "$RESULT" == "" ] && return # XXX this is never true due $RPM_BUILD_ROOT being set
-	r=`echo $RESULT | awk '{ print $1 }'`
-
+	r="$RPM_BUILD_ROOT$2"
 	if [ -d "$r" ]; then
 		echo "%%dir $2" >> $1.files
 	elif [ -x "$r" ] ; then
@@ -159,12 +158,16 @@ ifecho() {
 		return 1
 	fi
 }
+ifecho_tree() {
+	ifecho $1 $2
+	for f in `find $RPM_BUILD_ROOT$2 -printf "%%P "`; do
+		ifecho $1 $2/$f
+	done
+}
 
 echo "%defattr(644,root,root,755)" > examples.files
-ifecho examples %{_examplesdir}/qt5
-for f in `find $RPM_BUILD_ROOT%{_examplesdir}/qt5 -printf "%%P "`; do
-	ifecho examples %{_examplesdir}/qt5/$f
-done
+ifecho_tree examples %{_examplesdir}/qt5/qtsensors
+ifecho_tree examples %{_examplesdir}/qt5/sensors
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -174,10 +177,21 @@ rm -rf $RPM_BUILD_ROOT
 
 %files -n Qt5Sensors
 %defattr(644,root,root,755)
+%doc LGPL_EXCEPTION.txt dist/changes-*
 %attr(755,root,root) %{_libdir}/libQt5Sensors.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libQt5Sensors.so.5
-%attr(755,root,root) %{qt5dir}/plugins
-%attr(755,root,root) %{qt5dir}/qml
+%dir %{qt5dir}/plugins/sensorgestures
+%attr(755,root,root) %{qt5dir}/plugins/sensorgestures/libqtsensorgestures_counterplugin.so
+%attr(755,root,root) %{qt5dir}/plugins/sensorgestures/libqtsensorgestures_plugin.so
+%attr(755,root,root) %{qt5dir}/plugins/sensorgestures/libqtsensorgestures_shakeplugin.so
+%dir %{qt5dir}/plugins/sensors
+%attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_dummy.so
+%attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_generic.so
+%attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_linuxsys.so
+%dir %{qt5dir}/qml/QtSensors
+%attr(755,root,root) %{qt5dir}/qml/QtSensors/libdeclarative_sensors.so
+%{qt5dir}/qml/QtSensors/plugins.qmltypes
+%{qt5dir}/qml/QtSensors/qmldir
 
 %files -n Qt5Sensors-devel
 %defattr(644,root,root,755)
@@ -186,7 +200,8 @@ rm -rf $RPM_BUILD_ROOT
 %{_includedir}/qt5/QtSensors
 %{_pkgconfigdir}/Qt5Sensors.pc
 %{_libdir}/cmake/Qt5Sensors
-%{qt5dir}/mkspecs/modules/*.pri
+%{qt5dir}/mkspecs/modules/qt_lib_sensors.pri
+%{qt5dir}/mkspecs/modules/qt_lib_sensors_private.pri
 
 %files doc
 %defattr(644,root,root,755)
@@ -199,3 +214,6 @@ rm -rf $RPM_BUILD_ROOT
 %endif
 
 %files examples -f examples.files
+%defattr(644,root,root,755)
+# XXX: dir shared with qt5-qtbase-examples
+%dir %{_examplesdir}/qt5
