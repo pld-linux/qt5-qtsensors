@@ -40,7 +40,7 @@ Qt is a cross-platform application and UI framework. Using Qt, you can
 write web-enabled applications once and deploy them across desktop,
 mobile and embedded systems without rewriting the source code.
 
-This package contains Qt5 Sensors libraries.
+This package contains Qt5 Sensors library.
 
 %description -l pl.UTF-8
 Qt to wieloplatformowy szkielet aplikacji i interfejsów użytkownika.
@@ -48,7 +48,7 @@ Przy użyciu Qt można pisać aplikacje powiązane z WWW i wdrażać je w
 systemach biurkowych, przenośnych i wbudowanych bez przepisywania kodu
 źródłowego.
 
-Ten pakiet zawiera biblioteki Qt5 Sensors.
+Ten pakiet zawiera bibliotekę Qt5 Sensors.
 
 %package -n Qt5Sensors
 Summary:	The Qt5 Sensors library
