@@ -61,7 +61,7 @@ Obsoletes:	qt5-qtsensors
 %description -n Qt5Sensors
 Qt5 Sensors library provides classes for reading sensor data.
 
-%description -n Qt5Sensors -l pl.UTF_8
+%description -n Qt5Sensors -l pl.UTF-8
 Biblioteka Qt5 Sensors dostarcza klasy do odczytu danych z czujników.
 
 %package -n Qt5Sensors-devel
