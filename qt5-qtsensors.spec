@@ -185,7 +185,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{qt5dir}/plugins/sensorgestures/libqtsensorgestures_plugin.so
 %attr(755,root,root) %{qt5dir}/plugins/sensorgestures/libqtsensorgestures_shakeplugin.so
 %dir %{qt5dir}/plugins/sensors
-%attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_dummy.so
 %attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_generic.so
 %attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_linuxsys.so
 %dir %{qt5dir}/qml/QtSensors
