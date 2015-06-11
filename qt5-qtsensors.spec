@@ -3,7 +3,12 @@
 # plugins/sensorfw for MeeGo (sensorfw / sensord-qt)
 #
 # Conditional build:
+%bcond_with	bootstrap	# disable features to able to build without installed qt5
 %bcond_without	qch	# documentation in QCH format
+
+%if %{with bootstrap}
+%undefine	with_qch
+%endif
 
 %define		orgname		qtsensors
 %define		qtbase_ver		%{version}
@@ -12,12 +17,12 @@
 Summary:	The Qt5 Sensors library
 Summary(pl.UTF-8):	Biblioteka Qt5 Sensors
 Name:		qt5-%{orgname}
-Version:	5.4.1
-Release:	1
+Version:	5.4.2
+Release:	0.1
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
 Source0:	http://download.qt-project.org/official_releases/qt/5.4/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
-# Source0-md5:	0787b72a67d1e38a3a47b54b84a6dc42
+# Source0-md5:	182b8a4830c3066a9bf863d84074aa3c
 URL:		http://qt-project.org/
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Qml-devel >= %{qtdeclarative_ver}
