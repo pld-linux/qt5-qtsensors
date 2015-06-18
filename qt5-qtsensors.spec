@@ -13,7 +13,7 @@
 %define		orgname		qtsensors
 %define		qtbase_ver		%{version}
 %define		qtdeclarative_ver	%{version}
-%define		qttools_ver		%{version}
+%define		qttools_ver		5.4
 Summary:	The Qt5 Sensors library
 Summary(pl.UTF-8):	Biblioteka Qt5 Sensors
 Name:		qt5-%{orgname}
