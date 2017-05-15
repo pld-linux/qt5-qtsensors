@@ -13,16 +13,16 @@
 %define		orgname		qtsensors
 %define		qtbase_ver		%{version}
 %define		qtdeclarative_ver	%{version}
-%define		qttools_ver		5.4
+%define		qttools_ver		5.8
 Summary:	The Qt5 Sensors library
 Summary(pl.UTF-8):	Biblioteka Qt5 Sensors
 Name:		qt5-%{orgname}
-Version:	5.5.1
-Release:	1
+Version:	5.8.0
+Release:	0.1
 License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
 Group:		X11/Libraries
-Source0:	http://download.qt.io/official_releases/qt/5.5/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
-# Source0-md5:	25250d66b0f21d41711dbf8648fe21e6
+Source0:	http://download.qt.io/official_releases/qt/5.8/%{version}/submodules/%{orgname}-opensource-src-%{version}.tar.xz
+# Source0-md5:	c2062e07ab5d52d0fb8ef19c5ef6f86d
 URL:		http://www.qt.io/
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Qml-devel >= %{qtdeclarative_ver}
@@ -171,7 +171,6 @@ ifecho_tree() {
 }
 
 echo "%defattr(644,root,root,755)" > examples.files
-ifecho_tree examples %{_examplesdir}/qt5/qtsensors
 ifecho_tree examples %{_examplesdir}/qt5/sensors
 
 %clean
@@ -191,6 +190,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{qt5dir}/plugins/sensorgestures/libqtsensorgestures_shakeplugin.so
 %dir %{qt5dir}/plugins/sensors
 %attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_generic.so
+%attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_iio-sensor-proxy.so
 %attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_linuxsys.so
 %dir %{qt5dir}/qml/QtSensors
 %attr(755,root,root) %{qt5dir}/qml/QtSensors/libdeclarative_sensors.so
