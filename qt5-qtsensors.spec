@@ -61,7 +61,7 @@ Summary(pl.UTF-8):	Biblioteka Qt5 Sensors
 Group:		Libraries
 Requires:	Qt5Core >= %{qtbase_ver}
 Requires:	Qt5Qml >= %{qtdeclarative_ver}
-Obsoletes:	qt5-qtsensors
+Obsoletes:	qt5-qtsensors < 5.2.0-1
 
 %description -n Qt5Sensors
 Qt5 Sensors library provides classes for reading sensor data.
@@ -75,7 +75,7 @@ Summary(pl.UTF-8):	Biblioteka Qt5 Sensors - pliki programistyczne
 Group:		Development/Libraries
 Requires:	Qt5Core-devel >= %{qtbase_ver}
 Requires:	Qt5Sensors = %{version}-%{release}
-Obsoletes:	qt5-qtsensors-devel
+Obsoletes:	qt5-qtsensors-devel < 5.2.0-1
 
 %description -n Qt5Sensors-devel
 Qt5 Sensors library - development files.
