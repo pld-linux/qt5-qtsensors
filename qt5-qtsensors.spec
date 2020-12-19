@@ -4,7 +4,7 @@
 #
 # Conditional build:
 %bcond_with	bootstrap	# disable features to able to build without installed qt5
-%bcond_without	doc	# Documentation
+%bcond_without	doc		# documentation
 
 %if %{with bootstrap}
 %undefine	with_doc
@@ -19,11 +19,11 @@ Summary(pl.UTF-8):	Biblioteka Qt5 Sensors
 Name:		qt5-%{orgname}
 Version:	5.15.2
 Release:	2
-License:	LGPL v2.1 with Digia Qt LGPL Exception v1.1 or GPL v3.0
+License:	LGPL v3 or GPL v2 or GPL v3 or commercial
 Group:		X11/Libraries
 Source0:	http://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%{orgname}-everywhere-src-%{version}.tar.xz
 # Source0-md5:	82288a853427eaf7ae8f1dce4fa0fba2
-URL:		http://www.qt.io/
+URL:		https://www.qt.io/
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Qml-devel >= %{qtdeclarative_ver}
 BuildRequires:	Qt5Quick-devel >= %{qtdeclarative_ver}
@@ -32,7 +32,7 @@ BuildRequires:	qt5-assistant >= %{qttools_ver}
 %endif
 BuildRequires:	qt5-build >= %{qtbase_ver}
 BuildRequires:	qt5-qmake >= %{qtbase_ver}
-BuildRequires:	rpmbuild(macros) >= 1.654
+BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -88,9 +88,7 @@ Summary:	Qt5 Sensors documentation in HTML format
 Summary(pl.UTF-8):	Dokumentacja do biblioteki Qt5 Sensors w formacie HTML
 Group:		Documentation
 Requires:	qt5-doc-common >= %{qtbase_ver}
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description doc
 Qt5 Sensors documentation in HTML format.
@@ -103,9 +101,7 @@ Summary:	Qt5 Sensors documentation in QCH format
 Summary(pl.UTF-8):	Dokumentacja do biblioteki Qt5 Sensors w formacie QCH
 Group:		Documentation
 Requires:	qt5-doc-common >= %{qtbase_ver}
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description doc-qch
 Qt5 Sensors documentation in QCH format.
@@ -117,9 +113,7 @@ Dokumentacja do biblioteki Qt5 Sensors w formacie QCH.
 Summary:	Qt5 Sensors examples
 Summary(pl.UTF-8):	Przykłady do biblioteki Qt5 Sensors
 Group:		X11/Development/Libraries
-%if "%{_rpmversion}" >= "5"
-BuildArch:	noarch
-%endif
+%{?noarchpackage}
 
 %description examples
 Qt5 Sensors examples.
@@ -137,6 +131,7 @@ qmake-qt5
 
 %install
 rm -rf $RPM_BUILD_ROOT
+
 %{__make} install \
 	INSTALL_ROOT=$RPM_BUILD_ROOT
 
