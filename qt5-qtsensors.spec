@@ -1,6 +1,7 @@
 # maybe TODO: 
 # plugins/simulator (BR: Qt5Simulator)
 # plugins/sensorfw for MeeGo (sensorfw / sensord-qt)
+# plugins/sensortag (BR: Qt5Bluetooth)
 #
 # Conditional build:
 %bcond_with	bootstrap	# disable features to able to build without installed qt5
@@ -25,6 +26,7 @@ Source0:	http://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%
 # Source0-md5:	82288a853427eaf7ae8f1dce4fa0fba2
 URL:		https://www.qt.io/
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
+BuildRequires:	Qt5DBus-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Qml-devel >= %{qtdeclarative_ver}
 BuildRequires:	Qt5Quick-devel >= %{qtdeclarative_ver}
 %if %{with doc}
@@ -60,6 +62,7 @@ Summary:	The Qt5 Sensors library
 Summary(pl.UTF-8):	Biblioteka Qt5 Sensors
 Group:		Libraries
 Requires:	Qt5Core >= %{qtbase_ver}
+Requires:	Qt5DBus >= %{qtbase_ver}
 Requires:	Qt5Qml >= %{qtdeclarative_ver}
 Obsoletes:	qt5-qtsensors < 5.2.0-1
 
@@ -182,14 +185,21 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libQt5Sensors.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libQt5Sensors.so.5
 %dir %{qt5dir}/plugins/sensorgestures
+# R: Core Sensors
 %attr(755,root,root) %{qt5dir}/plugins/sensorgestures/libqtsensorgestures_counterplugin.so
+# R: Core Sensors
 %attr(755,root,root) %{qt5dir}/plugins/sensorgestures/libqtsensorgestures_plugin.so
+# R: Core Sensors
 %attr(755,root,root) %{qt5dir}/plugins/sensorgestures/libqtsensorgestures_shakeplugin.so
 %dir %{qt5dir}/plugins/sensors
+# R: Core Sensors
 %attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_generic.so
+# R: Core DBus Sensors
 %attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_iio-sensor-proxy.so
+# R: Core Sensors
 %attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_linuxsys.so
 %dir %{qt5dir}/qml/QtSensors
+# R: Core Qml Sensors [Quick for scriping]
 %attr(755,root,root) %{qt5dir}/qml/QtSensors/libdeclarative_sensors.so
 %{qt5dir}/qml/QtSensors/plugins.qmltypes
 %{qt5dir}/qml/QtSensors/qmldir
