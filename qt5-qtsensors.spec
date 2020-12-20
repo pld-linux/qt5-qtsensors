@@ -1,11 +1,11 @@
 # maybe TODO: 
 # plugins/simulator (BR: Qt5Simulator)
 # plugins/sensorfw for MeeGo (sensorfw / sensord-qt)
-# plugins/sensortag (BR: Qt5Bluetooth)
 #
 # Conditional build:
 %bcond_with	bootstrap	# disable features to able to build without installed qt5
 %bcond_without	doc		# documentation
+%bcond_without	qtbluetooth	# sensortag plugin (using Qt5Bluetooth)
 
 %if %{with bootstrap}
 %undefine	with_doc
@@ -13,8 +13,9 @@
 
 %define		orgname		qtsensors
 %define		qtbase_ver		%{version}
+%define		qtconnectivity_ver	%{version}
 %define		qtdeclarative_ver	%{version}
-%define		qttools_ver		5.8
+%define		qttools_ver		5.9
 Summary:	The Qt5 Sensors library
 Summary(pl.UTF-8):	Biblioteka Qt5 Sensors
 Name:		qt5-%{orgname}
@@ -25,6 +26,7 @@ Group:		X11/Libraries
 Source0:	http://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%{orgname}-everywhere-src-%{version}.tar.xz
 # Source0-md5:	82288a853427eaf7ae8f1dce4fa0fba2
 URL:		https://www.qt.io/
+%{?with_qtbluetooth:BuildRequires:	Qt5Bluetooth-devel >= %{qtconnectivity_ver}}
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
 BuildRequires:	Qt5DBus-devel >= %{qtbase_ver}
 BuildRequires:	Qt5Qml-devel >= %{qtdeclarative_ver}
@@ -35,6 +37,7 @@ BuildRequires:	qt5-assistant >= %{qttools_ver}
 BuildRequires:	qt5-build >= %{qtbase_ver}
 BuildRequires:	qt5-qmake >= %{qtbase_ver}
 BuildRequires:	rpmbuild(macros) >= 1.752
+BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -61,6 +64,7 @@ Ten pakiet zawiera bibliotekę Qt5 Sensors.
 Summary:	The Qt5 Sensors library
 Summary(pl.UTF-8):	Biblioteka Qt5 Sensors
 Group:		Libraries
+%{?with_qtbluetooth:Requires:	Qt5Bluetooth >= %{qtconnectivity_ver}}
 Requires:	Qt5Core >= %{qtbase_ver}
 Requires:	Qt5DBus >= %{qtbase_ver}
 Requires:	Qt5Qml >= %{qtdeclarative_ver}
@@ -127,8 +131,11 @@ Przykłady do biblioteki Qt5 Sensors.
 %prep
 %setup -q -n %{orgname}-everywhere-src-%{version}
 
+%{__sed} -i -e 's/SENSORS_PLUGINS = sensortag generic/SENSORS_PLUGINS += sensortag/' src/plugins/sensors/sensors.pro
+
 %build
-qmake-qt5
+qmake-qt5 \
+	%{?with_qtbluetooth:CONFIG+=sensortag}
 %{__make}
 %{?with_doc:%{__make} docs}
 
@@ -198,6 +205,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_iio-sensor-proxy.so
 # R: Core Sensors
 %attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_linuxsys.so
+# R: Bluetooth Core Sensors
+%attr(755,root,root) %{qt5dir}/plugins/sensors/libqtsensors_sensortag.so
 %dir %{qt5dir}/qml/QtSensors
 # R: Core Qml Sensors [Quick for scriping]
 %attr(755,root,root) %{qt5dir}/qml/QtSensors/libdeclarative_sensors.so
