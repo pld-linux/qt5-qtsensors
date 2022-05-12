@@ -37,7 +37,7 @@ BuildRequires:	qt5-assistant >= %{qttools_ver}
 BuildRequires:	qt5-build >= %{qtbase_ver}
 BuildRequires:	qt5-qmake >= %{qtbase_ver}
 BuildRequires:	rpm-build >= 4.6
-BuildRequires:	rpmbuild(macros) >= 1.752
+BuildRequires:	rpmbuild(macros) >= 2.016
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
@@ -135,7 +135,7 @@ Przykłady do biblioteki Qt5 Sensors.
 %{__sed} -i -e 's/SENSORS_PLUGINS = sensortag generic/SENSORS_PLUGINS += sensortag/' src/plugins/sensors/sensors.pro
 
 %build
-qmake-qt5 \
+%{qmake_qt5} \
 	%{?with_qtbluetooth:CONFIG+=sensortag}
 %{__make}
 %{?with_doc:%{__make} docs}
