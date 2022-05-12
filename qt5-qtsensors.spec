@@ -23,7 +23,7 @@ Version:	5.15.4
 Release:	1
 License:	LGPL v3 or GPL v2 or GPL v3 or commercial
 Group:		X11/Libraries
-Source0:	http://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%{orgname}-everywhere-opensource-src-%{version}.tar.xz
+Source0:	https://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%{orgname}-everywhere-opensource-src-%{version}.tar.xz
 # Source0-md5:	bb7b11fb793ab86f3bec37f7f7b53485
 URL:		https://www.qt.io/
 %{?with_qtbluetooth:BuildRequires:	Qt5Bluetooth-devel >= %{qtconnectivity_ver}}
