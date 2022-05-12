@@ -19,12 +19,12 @@
 Summary:	The Qt5 Sensors library
 Summary(pl.UTF-8):	Biblioteka Qt5 Sensors
 Name:		qt5-%{orgname}
-Version:	5.15.2
-Release:	2
+Version:	5.15.4
+Release:	1
 License:	LGPL v3 or GPL v2 or GPL v3 or commercial
 Group:		X11/Libraries
-Source0:	http://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%{orgname}-everywhere-src-%{version}.tar.xz
-# Source0-md5:	82288a853427eaf7ae8f1dce4fa0fba2
+Source0:	http://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%{orgname}-everywhere-opensource-src-%{version}.tar.xz
+# Source0-md5:	bb7b11fb793ab86f3bec37f7f7b53485
 URL:		https://www.qt.io/
 %{?with_qtbluetooth:BuildRequires:	Qt5Bluetooth-devel >= %{qtconnectivity_ver}}
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
@@ -192,8 +192,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libQt5Sensors.so.*.*.*
 %attr(755,root,root) %ghost %{_libdir}/libQt5Sensors.so.5
 %dir %{qt5dir}/plugins/sensorgestures
-# R: Core Sensors
-%attr(755,root,root) %{qt5dir}/plugins/sensorgestures/libqtsensorgestures_counterplugin.so
 # R: Core Sensors
 %attr(755,root,root) %{qt5dir}/plugins/sensorgestures/libqtsensorgestures_plugin.so
 # R: Core Sensors
