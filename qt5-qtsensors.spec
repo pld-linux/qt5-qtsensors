@@ -36,6 +36,7 @@ BuildRequires:	qt5-assistant >= %{qttools_ver}
 %endif
 BuildRequires:	qt5-build >= %{qtbase_ver}
 BuildRequires:	qt5-qmake >= %{qtbase_ver}
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpmbuild(macros) >= 1.752
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
