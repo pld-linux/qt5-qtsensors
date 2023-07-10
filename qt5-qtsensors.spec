@@ -66,7 +66,7 @@ Summary:	The Qt5 Sensors library
 Summary(pl.UTF-8):	Biblioteka Qt5 Sensors
 Group:		Libraries
 %{?with_qtbluetooth:Requires:	Qt5Bluetooth >= %{qtconnectivity_ver}}
-Requires:	Qt5Core >= %{qtbase_ver}
+%requires_eq_to	Qt5Core Qt5Core-devel
 Requires:	Qt5DBus >= %{qtbase_ver}
 Requires:	Qt5Qml >= %{qtdeclarative_ver}
 Obsoletes:	qt5-qtsensors < 5.2.0-1
