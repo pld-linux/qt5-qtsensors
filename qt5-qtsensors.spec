@@ -19,12 +19,12 @@
 Summary:	The Qt5 Sensors library
 Summary(pl.UTF-8):	Biblioteka Qt5 Sensors
 Name:		qt5-%{orgname}
-Version:	5.15.16
+Version:	5.15.17
 Release:	1
 License:	LGPL v3 or GPL v2 or GPL v3 or commercial
 Group:		X11/Libraries
 Source0:	https://download.qt.io/official_releases/qt/5.15/%{version}/submodules/%{orgname}-everywhere-opensource-src-%{version}.tar.xz
-# Source0-md5:	135d51cd2b4fdc9f586d15d52b539606
+# Source0-md5:	3fb4d617aee033b8694efbbf5e107471
 URL:		https://www.qt.io/
 %{?with_qtbluetooth:BuildRequires:	Qt5Bluetooth-devel >= %{qtconnectivity_ver}}
 BuildRequires:	Qt5Core-devel >= %{qtbase_ver}
